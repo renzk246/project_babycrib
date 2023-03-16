@@ -1,13 +1,15 @@
-from gpiozero import Buzzer, Button
+from gpiozero import Buzzer, Button, InputDevice
 
 global buzzer, button
 buzzer_condition = False
 button_condition = True
+irsensor_condition = False
 
-def extra_initialize(buzzer_pin, button_pin):
-    global buzzer, button
+def extra_initialize(buzzer_pin, button_pin, irsensor_pin):
+    global buzzer, button, irsensor
     buzzer = Buzzer(buzzer_pin)
     button = Button(button_pin)
+    irsensor = InputDevice(irsensor_pin)
 
 
 def buzzer_run(set):
@@ -30,3 +32,14 @@ def button_pressed():
         print("Button is Pressed \n")
 
     return button_condition
+
+
+def irsensor_sense():
+    global irsensor, irsensor_condition
+
+    if irsensor.is_active:
+        irsensor_condition = True
+    else:
+        irsensor_condition = False
+
+    return irsensor_condition

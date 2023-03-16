@@ -17,6 +17,7 @@ enable_edgetpu = False                          # Whether to run the model on Ed
 
 # Pin Assignments
 dht_pin = board.D23                             # DHT11 Pin
+irsensor_pin = 18                               # IR Sensor Pin
 buzzer_pin = 21                                 # Buzzer Pin
 button_pin = 16                                 # Button Pin
 L_PWM = 26                                      # H-Bridge Controller L-PWM Pin
@@ -29,15 +30,20 @@ min_humidity = 70                               # Minimum Humidity of the Enviro
 max_speed = 0.5                                 # Maximum Speed Value (0-1).
 motor_delay = 10                                # Delay for a Motor to stop after it cannot detect a sound of a baby crying (seconds).
 motor_maxTime = 30                              # Maximum time for a Motor run and trigger the alarm (seconds).
+motor_timeRise  = 0.05                          # Time multiplier for a motor to speed up and slow down in percent (0-1).
 
 
 #=====   MAIN    =====#
 def main():
     global current_time, previous_time, time_count, time_debug, time_dht, time_motor, maxtime_motor
-    global temp, humidity, max_temp, min_humidity, max_speed, motor_switch, motor_buzzer, button_status, audio_detected
+    global temp, humidity, max_temp, min_humidity, max_speed, motor_switch, motor_buzzer, button_status, irsensor_status, audio_detected
 
     # Audio Classification
     indexes, category_results, score_results = audio_run(max_results)
+
+    # IR Sensor
+    irsensor_status = irsensor_sense()
+
 
     # DHT11
     if ((time_count-time_dht) >= 1):
@@ -65,10 +71,12 @@ def main():
                 motor_buzzer = True
                 audio_detected = False
             elif ((time_count-time_motor) > motor_delay):
-                motor_switch = False
-                maxtime_motor = 0
-                audio_detected = False
-    motor_status = motor_run(motor_switch, max_speed, time_count)
+                if (irsensor_status):
+                    motor_switch = False
+                    maxtime_motor = 0
+                    audio_detected = False
+
+    motor_status = motor_run(motor_switch, max_speed, motor_timeRise)
 
 
     # Buzzer
@@ -96,7 +104,7 @@ def main():
             category_result = category_results[i]
             score_result = score_results[i]
             print('    {:}: {:12s}: {:.3f} \n'.format(index, category_result, score_result))
-        print('  temp: {}, humidity: {}, motor: {}, button: {}\n'.format(temp, humidity, motor_status, button_status))
+        print('  temp: {} _ humidity: {} _ motor: {} _ irsensor: {} _ button: {}\n'.format(temp, humidity, motor_status, irsensor_status, button_status))
         print("===========================================================")
         time_debug = time_count
 
@@ -128,8 +136,9 @@ if __name__ == '__main__':
     motor_buzzer = False
 
     # Extra Initialization
-    extra_initialize(buzzer_pin, button_pin)
+    extra_initialize(buzzer_pin, button_pin, irsensor_pin)
     button_status = True
+    irsensor_status = False
 
     while True:
         main()

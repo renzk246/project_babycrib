@@ -8,10 +8,8 @@ def motor_initialize(L_PWM, R_PWM, EN):
   motor = Motor(L_PWM, R_PWM, EN)
 
 
-def motor_run(value, max_speed, time_count):
+def motor_run(value, max_speed, motor_timeRise):
   global motor, status, motor_on
-
-  motor_timeRise  = 0.05              # Time multiplier for a motor to reach in a maximum speed in percent.
 
   if value:
     if not motor_on:
