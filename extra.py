@@ -38,8 +38,8 @@ def irsensor_sense():
     global irsensor, irsensor_condition
 
     if irsensor.is_active:
-        irsensor_condition = True
-    else:
         irsensor_condition = False
+    else:
+        irsensor_condition = True
 
     return irsensor_condition
