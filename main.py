@@ -9,8 +9,8 @@ from motor import *
 #=====  SETTINGS  =====#
 # Model Yamnet Setting
 model = 'yamnet.tflite'                         # Model File Path.
-max_results = 5                                 # Max number of results to output.
-score_threshold = 0.0                           # The score threshold of classification results.
+max_results = 3                                 # Max number of results to output.
+score_threshold = 0.3                           # The score threshold of classification results.
 overlapping_factor = 0.5                        # Target overlapping between adjacent inferences. Value must be in (0, 1).
 num_threads = 4                                 # Number of CPU threads to run the model.
 enable_edgetpu = False                          # Whether to run the model on EdgeTPU.
@@ -66,10 +66,11 @@ def main():
                     maxtime_motor = time_count
         if audio_detected:
             if ((time_count-maxtime_motor) > motor_maxTime):
-                motor_switch = False
-                maxtime_motor = 0
-                motor_buzzer = True
-                audio_detected = False
+                if (irsensor_status):
+                    motor_switch = False
+                    maxtime_motor = 0
+                    motor_buzzer = True
+                    audio_detected = False
             elif ((time_count-time_motor) > motor_delay):
                 if (irsensor_status):
                     motor_switch = False
