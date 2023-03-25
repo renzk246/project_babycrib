@@ -8,7 +8,7 @@ def motor_initialize(L_PWM, R_PWM, EN):
   motor = Motor(L_PWM, R_PWM, EN)
 
 
-def motor_run(value, max_speed, motor_timeRise):
+def motor_run(value, max_speed, motor_timeRise, irsensor_status):
   global motor, status, motor_on
 
   if value:
@@ -24,8 +24,8 @@ def motor_run(value, max_speed, motor_timeRise):
       for i in range(101):
         speed = mapf(i, 0, 100, max_speed, 0)
         motor.forward(speed)
-        sleep(motor_timeRise/4)
-        if (speed == 0):
+        sleep(motor_timeRise)
+        if ((speed <= 15) and (irsensor_status)):
           motor.stop()
       motor_on = False
     status = "stop"

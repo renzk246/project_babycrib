@@ -79,13 +79,13 @@ def main():
                     maxtime_motor = 0
                     audio_detected = False
 
-    motor_status = motor_run(motor_switch, max_speed, motor_timeRise)
+    motor_status = motor_run(motor_switch, max_speed, motor_timeRise, irsensor_status)
 
 
     # Buzzer
     if button_pressed():
         if not motor_buzzer:
-            if ((temp > max_temp) or (humidity < min_humidity)):
+            if ((temp > max_temp + 5) or (humidity < min_humidity - 5)):
                 if ((temp > 0) or (humidity > 0)):
                     buzzer_run(True)
             else:
