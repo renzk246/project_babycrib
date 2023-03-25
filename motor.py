@@ -25,8 +25,8 @@ def motor_run(value, max_speed, motor_timeRise, irsensor_status):
         speed = mapf(i, 0, 100, max_speed, 5)
         motor.forward(speed)
         sleep(motor_timeRise)
-        if ((speed <= 5) and (irsensor_status)):
-          motor.stop()
+      if ((speed <= 5) and (irsensor_status)):
+        motor.stop()
       motor_on = False
     status = "stop"
 
