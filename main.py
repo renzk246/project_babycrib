@@ -10,7 +10,8 @@ from motor import *
 # Model Yamnet Setting
 model = '/home/flakka/project_babycrib/yamnet.tflite'   # Model File Path.
 max_results = 5                                         # Max number of results to output.
-score_threshold = 0.1                                   # The score threshold of classification results.
+score_accuracy = 0.2                                    # Accuracy of the model detection (0.0 - 1.0)
+score_threshold = 0.0                                   # The score threshold of classification results.
 overlapping_factor = 0.5                                # Target overlapping between adjacent inferences. Value must be in (0, 1).
 num_threads = 4                                         # Number of CPU threads to run the model.
 enable_edgetpu = False                                  # Whether to run the model on EdgeTPU.
@@ -58,7 +59,8 @@ def main():
     if button_status and not motor_buzzer:
         for i in range(max_results):
             index = indexes[i]
-            if (index == 20):                       # 20 for Baby Crying; 19 for Crying
+            score_result = score_results[i]
+            if ((index == 20) and (score_result >= score_accuracy)):                       # 20 for Baby Crying; 19 for Crying
                 motor_switch = True
                 time_motor = time_count
                 audio_detected = True
