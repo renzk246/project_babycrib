@@ -2,6 +2,8 @@ from gpiozero import Motor
 from time import sleep
 
 motor_on = False
+last_speed = 0
+stop_value = 0.3
 
 def motor_initialize(L_PWM, R_PWM, EN):
   global motor
@@ -11,7 +13,6 @@ def motor_initialize(L_PWM, R_PWM, EN):
 def motor_run(value, max_speed, motor_timeRise, irsensor_status):
   global motor, status, motor_on, last_speed
   global stop_value
-  stop_value = 0.3
 
   if value:
     if not motor_on:
