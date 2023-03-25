@@ -1,4 +1,5 @@
 from gpiozero import Buzzer, Button, InputDevice
+from time import sleep
 
 global buzzer, button
 buzzer_condition = False
@@ -22,6 +23,12 @@ def buzzer_run(set):
     else:
         buzzer.off()
         buzzer_condition = False
+
+def buzzer_init():
+    global buzzer
+    buzzer.beep(on_time=0.2,off_time=0.2,n=None,background=True)
+    sleep(2)
+    buzzer.off()
 
 
 def button_pressed():

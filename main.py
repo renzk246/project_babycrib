@@ -10,7 +10,7 @@ from motor import *
 # Model Yamnet Setting
 model = '/home/flakka/project_babycrib/yamnet.tflite'   # Model File Path.
 max_results = 5                                         # Max number of results to output.
-score_accuracy = 0.2                                    # Accuracy of the model detection (0.0 - 1.0)
+score_accuracy = 0.0                                    # Accuracy of the model detection (0.0 - 1.0)
 score_threshold = 0.0                                   # The score threshold of classification results.
 overlapping_factor = 0.5                                # Target overlapping between adjacent inferences. Value must be in (0, 1).
 num_threads = 4                                         # Number of CPU threads to run the model.
@@ -26,7 +26,7 @@ R_PWM = 19                                      # H-Bridge Controller R-PWM Pin
 EN = 13                                         # H-Bridge Controller ENABLE Pin
 
 # Function Settings
-max_temp = 25                                   # Maximum Temperature of the Environment.
+max_temp = 30                                   # Maximum Temperature of the Environment.
 min_humidity = 60                               # Minimum Humidity of the Environment.
 max_speed = 1                                   # Maximum Speed Value (0-1).
 motor_delay = 9                                 # Delay for a Motor to stop after it cannot detect a sound of a baby crying (seconds).
@@ -142,6 +142,9 @@ if __name__ == '__main__':
     extra_initialize(buzzer_pin, button_pin, irsensor_pin)
     button_status = True
     irsensor_status = False
+
+    # Indication That System is Running
+    buzzer_init()
 
     while True:
         main()
