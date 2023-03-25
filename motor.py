@@ -3,7 +3,7 @@ from time import sleep
 
 motor_on = False
 last_speed = 0
-stop_value = 0.3
+stop_value = 0.2
 status = "stop"
 
 def motor_initialize(L_PWM, R_PWM, EN):
@@ -28,13 +28,12 @@ def motor_run(value, max_speed, motor_timeRise, irsensor_status):
     if motor_on:
       for i in range(101):
         speed = mapf(i, 0, 100, max_speed, stop_value)
-        last_speed = speed
         motor.forward(speed)
         sleep(motor_timeRise)
       motor_on = False
 
     else:
-      if ((last_speed <= stop_value) and (irsensor_status)):
+      if (irsensor_status):
         motor.forward(0)
         motor.stop()
         status = "stop"
