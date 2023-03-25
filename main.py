@@ -10,7 +10,7 @@ from motor import *
 # Model Yamnet Setting
 model = '/home/flakka/project_babycrib/yamnet.tflite'   # Model File Path.
 max_results = 5                                         # Max number of results to output.
-score_accuracy = 0.0                                    # Accuracy of the model detection (0.0 - 1.0)
+score_accuracy = 0.2                                    # Accuracy of the model detection (0.0 - 1.0)
 score_threshold = 0.0                                   # The score threshold of classification results.
 overlapping_factor = 0.5                                # Target overlapping between adjacent inferences. Value must be in (0, 1).
 num_threads = 4                                         # Number of CPU threads to run the model.
