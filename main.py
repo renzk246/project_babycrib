@@ -28,7 +28,7 @@ EN = 13                                         # H-Bridge Controller ENABLE Pin
 # Function Settings
 max_temp = 34                                   # Maximum Temperature of the Environment.
 min_humidity = 60                               # Minimum Humidity of the Environment.
-max_speed = 1                                   # Maximum Speed Value (0-1).
+max_speed = 0.8                                 # Maximum Speed Value (0-1).
 motor_delay = 9                                 # Delay for a Motor to stop after it cannot detect a sound of a baby crying (seconds).
 motor_maxTime = 20                              # Maximum time for a Motor run and trigger the alarm (seconds).
 motor_timeRise  = 0.05                          # Time multiplier for a motor to speed up and slow down in percent (0-1).
