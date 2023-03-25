@@ -22,10 +22,11 @@ def motor_run(value, max_speed, motor_timeRise, irsensor_status):
   else:
     if motor_on:
       for i in range(101):
-        speed = mapf(i, 0, 100, max_speed, 2)
+        speed = mapf(i, 0, 100, max_speed, 0.2)
         motor.forward(speed)
         sleep(motor_timeRise)
-      if ((speed <= 2) and (irsensor_status)):
+
+      if ((speed <= 0.2) and (irsensor_status)):
         motor.forward(0)
         motor.stop()
       motor_on = False
