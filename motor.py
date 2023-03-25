@@ -24,7 +24,7 @@ def motor_run(value, max_speed, motor_timeRise):
       for i in range(101):
         speed = mapf(i, 0, 100, max_speed, 0)
         motor.forward(speed)
-        sleep(motor_timeRise)
+        sleep(motor_timeRise/4)
         if (speed == 0):
           motor.stop()
       motor_on = False
