@@ -8,12 +8,12 @@ from motor import *
 
 #=====  SETTINGS  =====#
 # Model Yamnet Setting
-model = 'yamnet.tflite'                         # Model File Path.
-max_results = 3                                 # Max number of results to output.
-score_threshold = 0.3                           # The score threshold of classification results.
-overlapping_factor = 0.5                        # Target overlapping between adjacent inferences. Value must be in (0, 1).
-num_threads = 4                                 # Number of CPU threads to run the model.
-enable_edgetpu = False                          # Whether to run the model on EdgeTPU.
+model = '/home/flakka/project_babycrib/yamnet.tflite'   # Model File Path.
+max_results = 5                                         # Max number of results to output.
+score_threshold = 0.1                                   # The score threshold of classification results.
+overlapping_factor = 0.5                                # Target overlapping between adjacent inferences. Value must be in (0, 1).
+num_threads = 4                                         # Number of CPU threads to run the model.
+enable_edgetpu = False                                  # Whether to run the model on EdgeTPU.
 
 # Pin Assignments
 dht_pin = board.D23                             # DHT11 Pin
@@ -26,10 +26,10 @@ EN = 13                                         # H-Bridge Controller ENABLE Pin
 
 # Function Settings
 max_temp = 25                                   # Maximum Temperature of the Environment.
-min_humidity = 70                               # Minimum Humidity of the Environment.
+min_humidity = 60                               # Minimum Humidity of the Environment.
 max_speed = 1                                   # Maximum Speed Value (0-1).
-motor_delay = 60                                # Delay for a Motor to stop after it cannot detect a sound of a baby crying (seconds).
-motor_maxTime = 45                              # Maximum time for a Motor run and trigger the alarm (seconds).
+motor_delay = 9                                 # Delay for a Motor to stop after it cannot detect a sound of a baby crying (seconds).
+motor_maxTime = 20                              # Maximum time for a Motor run and trigger the alarm (seconds).
 motor_timeRise  = 0.05                          # Time multiplier for a motor to speed up and slow down in percent (0-1).
 
 
