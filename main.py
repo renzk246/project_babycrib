@@ -26,8 +26,9 @@ R_PWM = 19                                      # H-Bridge Controller R-PWM Pin
 EN = 13                                         # H-Bridge Controller ENABLE Pin
 
 # Function Settings
-max_temp = 34                                   # Maximum Temperature of the Environment.
-min_humidity = 60                               # Minimum Humidity of the Environment.
+max_temp = 25                                   # Maximum Temperature of the Environment.
+calibrate_temp = 0                              # DHT11 sensor reading error to the actual temperature and humidity of the environment (-100 to 100).
+min_humidity = 65                               # Minimum Humidity of the Environment.
 max_speed = 0.8                                 # Maximum Speed Value (0-1).
 motor_delay = 9                                 # Delay for a Motor to stop after it cannot detect a sound of a baby crying (seconds).
 motor_maxTime = 20                              # Maximum time for a Motor run and trigger the alarm (seconds).
@@ -52,6 +53,8 @@ def main():
         if ((dht_sense[0] != None) and (dht_sense[1] != None)):
             if ((dht_sense[0] > 0) and (dht_sense[1] > 0)):
                 temp, humidity = dht_sense
+                temp = temp - calibrate_temp
+                humidity = humidity + calibrate_temp
         time_dht = time_count
 
 
@@ -83,9 +86,9 @@ def main():
 
 
     # Buzzer
-    if button_pressed():
+    if not button_pressed():
         if not motor_buzzer:
-            if ((temp > max_temp + 5) or (humidity < min_humidity - 5)):
+            if ((temp > max_temp) or (humidity < min_humidity)):
                 if ((temp > 0) or (humidity > 0)):
                     buzzer_run(True)
             else:

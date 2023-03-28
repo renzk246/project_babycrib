@@ -3,7 +3,7 @@ from time import sleep
 
 global buzzer, button
 buzzer_condition = False
-button_condition = True
+button_condition = False
 irsensor_condition = False
 
 def extra_initialize(buzzer_pin, button_pin, irsensor_pin):
@@ -32,10 +32,11 @@ def buzzer_init():
 
 
 def button_pressed():
-    global button, button_condition
+    global buzzer, button, button_condition
 
     if button.is_pressed:
         button_condition = not button_condition
+        buzzer.beep(on_time=0.1,off_time=0.1,n=None,background=True)
         print("Button is Pressed \n")
 
     return button_condition
