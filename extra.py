@@ -42,7 +42,6 @@ def button_pressed():
         print("Button is Pressed \n")
     else:
         button_condition = False
-        buzzer.off()
 
     return button_condition
 
