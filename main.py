@@ -1,5 +1,3 @@
-import os
-
 from audioClassification import *
 from dht11 import *
 from extra import *
