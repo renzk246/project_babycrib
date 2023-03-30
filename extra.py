@@ -35,10 +35,14 @@ def button_pressed():
     global buzzer, button, button_condition
 
     if button.is_pressed:
-        button_condition = not button_condition
-        buzzer.beep(on_time=0.1,off_time=0.1,n=None,background=True)
+        button_condition = True
+        buzzer.beep(on_time=0.2,off_time=0.2,n=None,background=True)
+        sleep(1)
         buzzer.off()
         print("Button is Pressed \n")
+    else:
+        button_condition = False
+        buzzer.off()
 
     return button_condition
 
