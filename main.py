@@ -95,12 +95,12 @@ def main():
                  buzzer_run(False)
         else:
             buzzer_run(True)
-        button_status = True
+        button_status = False
     else:
         buzzer_run(False)
         motor_buzzer = False
         motor_switch = False
-        button_status = False
+        button_status = True
 
     # Debug Print
     if ((time_count-time_debug)>=1):
