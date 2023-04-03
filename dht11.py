@@ -9,7 +9,7 @@ def dht_initialize(dht_pin):
     for proc in psutil.process_iter():
         if proc.name() == 'libgpiod_pulsein' or proc.name() == 'libgpiod_pulsei':
             proc.kill()
-    sensor = adafruit_dht.DHT11(dht_pin)
+    sensor = adafruit_dht.DHT11(dht_pin, use_pulseio=False)
 
 def dht_run():
     global sensor
