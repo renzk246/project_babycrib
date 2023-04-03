@@ -97,7 +97,7 @@ def main():
                  buzzer_run(False)
         else:
             buzzer_run(True)
-        button_status = False
+        button_status = True
     else:
         buzzer_run(False)
         motor_buzzer = False
