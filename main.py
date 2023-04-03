@@ -33,11 +33,11 @@ max_speed = 0.8                                 # Maximum Speed Value (0-1).
 motor_delay = 9                                 # Delay for a Motor to stop after it cannot detect a sound of a baby crying (seconds).
 motor_maxTime = 20                              # Maximum time for a Motor run and trigger the alarm (seconds).
 motor_timeRise  = 0.05                          # Time multiplier for a motor to speed up and slow down in percent (0-1).
-
+buzzer_pauseTime = 10                           # Buzzer pause time after the button is pressed (seconds).
 
 #=====   MAIN    =====#
 def main():
-    global current_time, previous_time, time_count, time_debug, time_dht, time_motor, maxtime_motor
+    global current_time, previous_time, time_count, time_debug, time_dht, time_motor, time_buzzer, maxtime_motor, buzzer_prevStatus
     global temp, humidity, max_temp, min_humidity, max_speed, motor_switch, motor_buzzer, button_status, irsensor_status, audio_detected
 
     # Audio Classification
@@ -90,7 +90,9 @@ def main():
         if not motor_buzzer:
             if ((temp > max_temp) or (humidity < min_humidity)):
                 if ((temp > 0) or (humidity > 0)):
-                    buzzer_run(True)
+                    if ((time_count-time_buzzer) > buzzer_pauseTime):
+                        buzzer_run(True)
+                        buzzer_prevStatus = True
             else:
                  buzzer_run(False)
         else:
@@ -100,7 +102,10 @@ def main():
         buzzer_run(False)
         motor_buzzer = False
         motor_switch = False
-        button_status = True
+        button_status = False
+        if buzzer_prevStatus:
+            time_buzzer = time_count
+            buzzer_prevStatus = False
 
     # Debug Print
     if ((time_count-time_debug)>=1):
