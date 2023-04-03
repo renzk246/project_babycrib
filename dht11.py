@@ -2,12 +2,14 @@ import time
 import board
 import adafruit_dht
 import psutil
+from time import sleep
 
 global sensor
 
 def dht_initialize(dht_pin):
     global sensor
     # We first check if a libgpiod process is running. If yes, we kill it!
+    sleep(2)
     for proc in psutil.process_iter():
         if proc.name() == 'libgpiod_pulsein' or proc.name() == 'libgpiod_pulsei':
             proc.kill()

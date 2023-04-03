@@ -132,11 +132,6 @@ if __name__ == '__main__':
                     overlapping_factor, num_threads, enable_edgetpu)
     audio_detected = False
 
-    # DHT11 Initialization
-    dht_initialize(dht_pin)
-    temp = 0.0
-    humidity = 0.0
-
     # Motor Driver
     motor_initialize(L_PWM, R_PWM, EN)
     motor_switch = False
@@ -150,6 +145,11 @@ if __name__ == '__main__':
     irsensor_status = False
     time_buzzer = 0
     buzzer_prevStatus = False
+
+    # DHT11 Initialization
+    dht_initialize(dht_pin)
+    temp = 0.0
+    humidity = 0.0
 
     # Indication That System is Running
     buzzer_init()
