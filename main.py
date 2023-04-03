@@ -60,7 +60,7 @@ def main():
 
 
     # Motor
-    if button_status and not motor_buzzer:
+    if not button_status and not motor_buzzer:
         for i in range(max_results):
             index = indexes[i]
             score_result = score_results[i]
