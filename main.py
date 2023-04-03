@@ -92,20 +92,17 @@ def main():
                 if ((temp > 0) or (humidity > 0)):
                     if ((time_count-time_buzzer) > buzzer_pauseTime):
                         buzzer_run(True)
-                        buzzer_prevStatus = True
             else:
                  buzzer_run(False)
         else:
             buzzer_run(True)
-        button_status = True
+        button_status = False
     else:
         buzzer_run(False)
         motor_buzzer = False
         motor_switch = False
-        button_status = False
-        if buzzer_prevStatus:
-            time_buzzer = time_count
-            buzzer_prevStatus = False
+        button_status = True
+        time_buzzer = time_count
 
     # Debug Print
     if ((time_count-time_debug)>=1):
@@ -150,6 +147,8 @@ if __name__ == '__main__':
     extra_initialize(buzzer_pin, button_pin, irsensor_pin)
     button_status = True
     irsensor_status = False
+    time_buzzer = 0
+    buzzer_prevStatus = False
 
     # Indication That System is Running
     buzzer_init()
