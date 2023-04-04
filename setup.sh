@@ -18,7 +18,7 @@ sudo apt update
 sudo apt install python3-tflite-runtime libatlas-base-dev
 
 # Download Tensorflow Lite Model
-sudo apt install git --yes
+sudo apt install git
 git clone https://github.com/tensorflow/examples --depth 1
 mv ./examples ./tensorflow_model
 cd ./tensorflow_model/lite/examples/audio_classification/raspberry_pi
